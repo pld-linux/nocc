@@ -1,5 +1,5 @@
 %define _year	2004
-%define _month	01
+%define _month	04
 %define _day	10
 %define _snap	%{_year}%{_month}%{_day}
 
@@ -12,7 +12,7 @@ License:	GPL
 Group:		Applications/Mail
 #Source0:	http://dl.sourceforge.net/nocc/%{name}-%{version}.tar.gz
 Source0:	http://nocc.sourceforge.net/download/%{name}-%{_year}-%{_month}-%{_day}.tar.gz
-#Source0-md5:	9de4192b76760a58079600571d13b686
+#Source0-md5:	f697f72ecdb611fd8a778cb6b014377e
 URL:		http://nocc.sourceforge.net/
 Requires:	webserver
 Requires:	php
