@@ -1,19 +1,11 @@
---- nocc-0.9.5.orig/functions.php	Fri Nov 16 18:09:15 2001
-+++ nocc-0.9.5/functions.php	Tue May 27 15:51:34 2003
-@@ -213,7 +213,7 @@
- 		'body' => $glob_body,
- 		'body_mime' => $tmp['mime'],
- 		'body_transfer' => $tmp['transfer'],
--		'header' => $header,
-+		'header' => htmlspecialchars($header),
- 		'verbose' => $verbose,
- 		'prev' => $prev_msg,
- 		'next' => $next_msg
-@@ -444,6 +444,7 @@
- 	}
- 	elseif (eregi('plain', $mime))
- 	{
-+		$body = htmlspecialchars($body);
- 		$body = eregi_replace("(http|https|ftp)://([a-zA-Z0-9+-=%&:_.~?]+[#a-zA-Z0-9+]*)","<a href=\"\\1://\\2\" target=\"_blank\">\\1://\\2</a>", $body);
- 		$body = eregi_replace("([#a-zA-Z0-9+-._]*)@([#a-zA-Z0-9+-_]*)\.([a-zA-Z0-9+-_.]+[#a-zA-Z0-9+]*)","<a href=\"$PHP_SELF?action=write&amp;mail_to=\\1@\\2.\\3&amp;lang=$lang\">\\1@\\2.\\3</a>", $body);
- 		$body = nl2br($body);
+--- nocc-2003-12-10/functions.php.orig	2003-03-05 14:28:48.000000000 +0100
++++ nocc-2003-12-10/functions.php	2003-12-11 21:55:07.000000000 +0100
+@@ -242,7 +242,7 @@
+         'body' => $body,
+         'body_mime' => $tmp['mime'],
+         'body_transfer' => $tmp['transfer'],
+-        'header' => $header,
++	'header' => htmlspecialchars($header),
+         'verbose' => $verbose,
+         'prev' => $prev_msg,
+         'next' => $next_msg,
