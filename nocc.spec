@@ -7,7 +7,7 @@ Summary:	WebMail package
 Summary(pl):	Poczta przez WWW
 Name:		nocc
 Version:	0.9.6
-Release:	0.%{_snap}.2
+Release:	0.%{_snap}.3
 License:	GPL
 Group:		Applications/Mail
 #Source0:	http://dl.sourceforge.net/nocc/%{name}-%{version}.tar.gz
@@ -15,6 +15,7 @@ Source0:	http://nocc.sourceforge.net/download/%{name}-%{_year}-%{_month}-%{_day}
 #Source0-md5:	a10894536270523a260c1802a7272cf1
 Patch0:		%{name}-sec.patch
 Patch1:		%{name}-lang-workaround.patch
+Patch2:		%{name}-lang-pl.patch
 URL:		http://nocc.sourceforge.net/
 Requires:	webserver
 Requires:	php
@@ -38,6 +39,7 @@ pocztowych IMAP i POP3 przez WWW.
 %setup -q -n %{name}-%{_year}-%{_month}-%{_day} 
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %install
 rm -rf $RPM_BUILD_ROOT
