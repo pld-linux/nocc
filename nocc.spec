@@ -1,19 +1,19 @@
 %define _year	2004
-%define _month	06
-%define _day	14
+%define _month	07
+%define _day	08
 %define _snap	%{_year}%{_month}%{_day}
 
 Summary:	WebMail package
 Summary(pl):	Poczta przez WWW
 Name:		nocc
 Version:	0.9.6
-#Release:	0.%{_snap}.1
-Release:	1.rc1.1
+Release:	1.%{_snap}.1
+#Release:	1.rc1.1
 License:	GPL
 Group:		Applications/Mail
-Source0:	http://dl.sourceforge.net/sourceforge/nocc/%{name}-%{version}RC1.tar.gz
-#Source0:	http://nocc.sourceforge.net/download/%{name}-%{_year}-%{_month}-%{_day}.tar.gz
-#Source0-md5:	61142b0a1003fdc12e92bcaf0968f483
+#Source0:	http://dl.sourceforge.net/sourceforge/nocc/%{name}-%{version}RC1.tar.gz
+Source0:	http://nocc.sourceforge.net/download/%{name}-%{_year}-%{_month}-%{_day}.tar.gz
+#Source0-md5:	f46a96a58561b9520f0c3466fd93eb13
 URL:		http://nocc.sourceforge.net/
 Requires:	webserver
 Requires:	php
@@ -34,8 +34,8 @@ NOCC jest klientem poczty napisanym w PHP. Umo¿liwia dostêp do kont
 pocztowych IMAP i POP3 przez WWW.
 
 %prep
-#%setup -q -n %{name}-%{_year}-%{_month}-%{_day} 
-%setup -q -n %{name}-%{version}RC1
+%setup -q -n %{name}-%{_year}-%{_month}-%{_day} 
+#%setup -q -n %{name}-%{version}RC1
 
 %install
 rm -rf $RPM_BUILD_ROOT
