@@ -1,6 +1,6 @@
 %define _year	2004
-%define _month	04
-%define _day	20
+%define _month	06
+%define _day	01
 %define _snap	%{_year}%{_month}%{_day}
 
 Summary:	WebMail package
@@ -12,7 +12,7 @@ License:	GPL
 Group:		Applications/Mail
 #Source0:	http://dl.sourceforge.net/nocc/%{name}-%{version}.tar.gz
 Source0:	http://nocc.sourceforge.net/download/%{name}-%{_year}-%{_month}-%{_day}.tar.gz
-#Source0-md5:	41f3e8ab5eb9eea0e43595ff4279a824
+#Source0-md5:	2e1c9f6162414f9748906f6a6206300d
 URL:		http://nocc.sourceforge.net/
 Requires:	webserver
 Requires:	php
