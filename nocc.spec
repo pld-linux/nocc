@@ -1,17 +1,24 @@
+%define _year	2003
+%define _month	12
+%define _day	10
+%define _snap	%{_year}%{_month}%{_day}
+
 Summary:	WebMail package
 Summary(pl):	Poczta przez WWW
 Name:		nocc
-Version:	0.9.5
-Release:	1
+Version:	0.9.6_dev.%{_snap}
+Release:	0.1
 License:	GPL
 Group:		Applications/Mail
-Source0:	http://dl.sourceforge.net/nocc/%{name}-%{version}.tar.gz
-#Source0-md5:	b48e45282fb8d3a63322499ea867e33a
-Patch0:		%{name}-sec.patch
+#Source0:	http://dl.sourceforge.net/nocc/%{name}-%{version}.tar.gz
+Source0:	http://nocc.sourceforge.net/download/%{name}-%{_year}-%{_month}-%{_day}.tar.gz
+#Source0-md5:	a10894536270523a260c1802a7272cf1
+#Patch0:		%{name}-sec.patch
 URL:		http://nocc.sourceforge.net/
 Requires:	webserver
 Requires:	php
 Requires:	php-imap
+Requires:	php-pcre
 Provides:	webmail
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -27,8 +34,8 @@ NOCC jest klientem poczty napisanym w PHP. Umo¿liwia dostêp do kont
 pocztowych IMAP i POP3 przez WWW.
 
 %prep
-%setup -q
-%patch0 -p1
+%setup -q -n %{name}-%{_year}-%{_month}-%{_day} 
+#%patch0 -p1
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -38,6 +45,7 @@ cp -avR * $RPM_BUILD_ROOT%{_noccdir}
 install -D conf.php.dist $RPM_BUILD_ROOT%{_noccdir}/conf.php
 rm -rf $RPM_BUILD_ROOT%{_noccdir}/docs
 rm -f $RPM_BUILD_ROOT%{_noccdir}/{COPYING,INSTALL,README,*.sh}
+rm -rf $RPM_BUILD_ROOT%{_noccdir}/debian
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -49,25 +57,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc conf.php.dist
 %attr(730,root,http) %dir %{_noccdir}
 %attr(770,root,http) %dir %{_noccdir}/profiles
-%attr(640,root,http) %{_noccdir}/action.php
-%attr(640,root,http) %{_noccdir}/check_lang.php
-%attr(640,root,http) %{_noccdir}/check.php
-%attr(640,root,http) %{_noccdir}/class_send.php
-%attr(640,root,http) %{_noccdir}/class_smtp.php
-%attr(640,root,http) %{_noccdir}/conf_lang.php
-%attr(640,root,http) %{_noccdir}/delete.php
-%attr(640,root,http) %{_noccdir}/download.php
-%attr(640,root,http) %{_noccdir}/exception.php
-%attr(640,root,http) %{_noccdir}/functions.php
-%attr(640,root,http) %{_noccdir}/get_img.php
-%attr(640,root,http) %{_noccdir}/help.php
-%attr(640,root,http) %{_noccdir}/index.php
-%attr(640,root,http) %{_noccdir}/is_uploaded_file.php
-%attr(640,root,http) %{_noccdir}/logout.php
-%attr(640,root,http) %{_noccdir}/mime.php
-%attr(640,root,http) %{_noccdir}/prefs.php
-%attr(640,root,http) %{_noccdir}/send.php
-%attr(640,root,http) %{_noccdir}/wrong.php
+%attr(640,root,http) %{_noccdir}/*.php
 %attr(640,root,http) %config(noreplace) %{_noccdir}/conf.php
 %attr(730,root,http) %dir %{_noccdir}/html
 %attr(640,root,http) %{_noccdir}/html/*
