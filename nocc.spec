@@ -11,7 +11,7 @@ Version:	0.9.6
 Release:	2
 License:	GPL
 Group:		Applications/Mail
-Source0:	http://dl.sourceforge.net/sourceforge/nocc/%{name}-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/nocc/%{name}-%{version}.tar.gz
 #Source0:	http://nocc.sourceforge.net/download/%{name}-%{_year}-%{_month}-%{_day}.tar.gz
 #Source0-md5:	909dfaab076144e7382fde878c9f4ebe
 URL:		http://nocc.sourceforge.net/
