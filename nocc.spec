@@ -5,7 +5,7 @@ Version:	0.9.5
 Release:	1
 License:	GPL
 Group:		Applications/Mail
-Source0:	http://heanet.dl.sourceforge.net/sourceforge/nocc/%{name}-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/nocc/%{name}-%{version}.tar.gz
 #Source0-md5:	b48e45282fb8d3a63322499ea867e33a
 Patch0:		%{name}-sec.patch
 URL:		http://nocc.sourceforge.net/
@@ -19,11 +19,12 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_noccdir	/home/services/httpd/html/nocc
 
 %description
-NOCC is a webmail client written in PHP. It provides webmail access to IMAP and POP3 accounts.
+NOCC is a webmail client written in PHP. It provides webmail access to
+IMAP and POP3 accounts.
 
 %description -l pl
-NOCC jest klientem poczty napisanym w PHP. Umozliwia dostep do kont pocztowych IMAP i POP3 przez www.
-
+NOCC jest klientem poczty napisanym w PHP. Umo¿liwia dostêp do kont
+pocztowych IMAP i POP3 przez WWW.
 
 %prep
 %setup -q
@@ -38,12 +39,14 @@ install -D conf.php.dist $RPM_BUILD_ROOT%{_noccdir}/conf.php
 rm -rf $RPM_BUILD_ROOT%{_noccdir}/docs
 rm -f $RPM_BUILD_ROOT%{_noccdir}/{COPYING,INSTALL,README,*.sh}
 
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
+%doc docs/*
+%doc addcgipath.sh
+%doc conf.php.dist
 %attr(730,root,http) %dir %{_noccdir}
 %attr(770,root,http) %dir %{_noccdir}/profiles
 %attr(640,root,http) %{_noccdir}/action.php
@@ -86,6 +89,3 @@ rm -rf $RPM_BUILD_ROOT
 %attr(640,root,http) %{_noccdir}/themes/standard/img/*
 %attr(640,root,http) %{_noccdir}/themes/standard/*.css
 %attr(640,root,http) %{_noccdir}/themes/standard/*.php
-%doc docs/*
-%doc addcgipath.sh
-%doc conf.php.dist
