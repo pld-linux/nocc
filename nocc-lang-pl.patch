@@ -41,9 +41,9 @@
 +$html_filter_remove = 'Skasuj';
 +$html_filter_body = 'Tre¶æ Wiadomo¶ci';
 +$html_filter_subject = 'Temat Wiadomo¶ci';
-+$html_filter_to = 'Pole \"DO\"';
-+$html_filter_cc = 'Pole \"DW\"';
-+$html_filter_from = 'Pole \"Od\"';
++$html_filter_to = 'Pole \'Do\'';
++$html_filter_cc = 'Pole \'DW\'';
++$html_filter_from = 'Pole \'Od\'';
 +$html_filter_change_tip = "¯eby zmieniæ filtr poprostu go nadpisz.";
 +$html_reapply_filters = "Ponownie zastosuj wszystkie filtry";
  
