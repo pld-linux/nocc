@@ -8,7 +8,7 @@ Summary(pl):	Poczta przez WWW
 Name:		nocc
 Version:	0.9.6
 #Release:	0.%{_snap}.1
-Release:	0.rc1.1
+Release:	1.rc1.1
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/sourceforge/nocc/%{name}-%{version}RC1.tar.gz
