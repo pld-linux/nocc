@@ -6,6 +6,7 @@ Release:	1
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://heanet.dl.sourceforge.net/sourceforge/nocc/%{name}-%{version}.tar.gz
+#Source0-md5:	b48e45282fb8d3a63322499ea867e33a
 Patch0:		%{name}-sec.patch
 URL:		http://nocc.sourceforge.net/
 Requires:	webserver
