@@ -1,23 +1,18 @@
-%define _year	2003
-%define _month	12
-%define _day	10
+%define _year	2004
+%define _month	01
+%define _day	02
 %define _snap	%{_year}%{_month}%{_day}
 
 Summary:	WebMail package
 Summary(pl):	Poczta przez WWW
 Name:		nocc
 Version:	0.9.6
-Release:	0.%{_snap}.4
+Release:	0.%{_snap}.1
 License:	GPL
 Group:		Applications/Mail
 #Source0:	http://dl.sourceforge.net/nocc/%{name}-%{version}.tar.gz
 Source0:	http://nocc.sourceforge.net/download/%{name}-%{_year}-%{_month}-%{_day}.tar.gz
-#Source0-md5:	a10894536270523a260c1802a7272cf1
-Patch0:		%{name}-sec.patch
-Patch1:		%{name}-lang-workaround.patch
-Patch2:		%{name}-lang-pl.patch
-Patch3:		%{name}-lang-en.patch
-Patch4:		%{name}-translation.patch
+#Source0-md5:	1275335eabc00e8e78e3fd7520dd1007
 URL:		http://nocc.sourceforge.net/
 Requires:	webserver
 Requires:	php
@@ -39,11 +34,6 @@ pocztowych IMAP i POP3 przez WWW.
 
 %prep
 %setup -q -n %{name}-%{_year}-%{_month}-%{_day} 
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -72,8 +62,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(640,root,http) %{_noccdir}/class_smtp.php
 %attr(640,root,http) %{_noccdir}/common.php
 %attr(640,root,http) %{_noccdir}/conf_lang.php
+%attr(640,root,http) %{_noccdir}/contacts.php
+%attr(640,root,http) %{_noccdir}/contacts_manager.php
 %attr(640,root,http) %{_noccdir}/delete.php
 %attr(640,root,http) %{_noccdir}/detect_cyr_charset.php
+%attr(640,root,http) %{_noccdir}/down_mail.php
 %attr(640,root,http) %{_noccdir}/download.php
 %attr(640,root,http) %{_noccdir}/exception.php
 %attr(640,root,http) %{_noccdir}/functions.php
