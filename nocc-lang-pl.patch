@@ -1,5 +1,5 @@
---- nocc-2003-12-10/lang/pl.php.orig	2002-11-29 08:04:57.000000000 +0100
-+++ nocc-2003-12-10/lang/pl.php	2003-12-12 13:19:23.000000000 +0100
+--- nocc-2003-12-10.orig/lang/pl.php	2002-11-29 08:04:57.000000000 +0100
++++ nocc-2003-12-10/lang/pl.php	2003-12-13 18:04:16.000000000 +0100
 @@ -10,6 +10,7 @@
   *
   * Configuration file for the Polish language
@@ -16,7 +16,7 @@
  $html_preferences = 'Ustawienia';
  $html_full_name = 'Nazwa wy¶wietlana';
  $html_email_address = 'Adres email';
-@@ -79,10 +81,46 @@
+@@ -79,10 +81,51 @@
  $html_reply_to = 'Odpisuj na adres';
  $html_use_signature = 'U¿ywaj podpisu';
  $html_signature = 'Podpis';
@@ -46,6 +46,11 @@
 +$html_filter_from = 'Pole \'Od\'';
 +$html_filter_change_tip = "¯eby zmieniæ filtr poprostu go nadpisz.";
 +$html_reapply_filters = "Ponownie zastosuj wszystkie filtry";
++$html_filter_contains = "zawiera";
++$html_filter_name = "Nazwa Filtru";
++$html_filter_action = "Akcja";
++$html_filter_moveto = "Przenie¶ do";
++$html_filter_delete = "Usuñ";
  
 +// Other pages
 +$html_select_one = '--Wybierz Jeden--';
@@ -64,7 +69,7 @@
  $html_view_header = 'Zobacz nag³ówek';
  $html_remove_header = 'Schowaj nag³ówek';
  $html_inbox = 'Skrzynka odbiorcza';
-@@ -127,14 +165,15 @@
+@@ -127,14 +170,15 @@
  $html_low = 'Niska';
  $html_normal = 'Normalna';
  $html_high = 'Wysoka';
@@ -83,7 +88,7 @@
  
  $original_msg = '--- Wiadomo¶æ oryginalna ---';
  $to_empty = 'Pole \'Do\' nie mo¿e byæ puste!';
-@@ -142,8 +181,11 @@
+@@ -142,8 +186,11 @@
  // SMTP problems (class_smtp.php)
  $html_smtp_error_no_conn = "Nie mo¿na utworzyæ po³±czenia";
  $html_smtp_error_unexpected = "Nieoczekiwana reakcja:";
