@@ -7,13 +7,14 @@ Summary:	WebMail package
 Summary(pl):	Poczta przez WWW
 Name:		nocc
 Version:	0.9.6_dev.%{_snap}
-Release:	0.1
+Release:	0.2
 License:	GPL
 Group:		Applications/Mail
 #Source0:	http://dl.sourceforge.net/nocc/%{name}-%{version}.tar.gz
 Source0:	http://nocc.sourceforge.net/download/%{name}-%{_year}-%{_month}-%{_day}.tar.gz
 #Source0-md5:	a10894536270523a260c1802a7272cf1
-#Patch0:		%{name}-sec.patch
+Patch0:		%{name}-sec.patch
+Patch1:		%{name}-lang-workaround.patch
 URL:		http://nocc.sourceforge.net/
 Requires:	webserver
 Requires:	php
@@ -35,7 +36,8 @@ pocztowych IMAP i POP3 przez WWW.
 
 %prep
 %setup -q -n %{name}-%{_year}-%{_month}-%{_day} 
-#%patch0 -p1
+%patch0 -p1
+%patch1 -p1
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -57,7 +59,28 @@ rm -rf $RPM_BUILD_ROOT
 %doc conf.php.dist
 %attr(730,root,http) %dir %{_noccdir}
 %attr(770,root,http) %dir %{_noccdir}/profiles
-%attr(640,root,http) %{_noccdir}/*.php
+%attr(640,root,http) %{_noccdir}/action.php
+%attr(640,root,http) %{_noccdir}/check.php
+%attr(640,root,http) %{_noccdir}/class_local.php
+%attr(640,root,http) %{_noccdir}/class_send.php
+%attr(640,root,http) %{_noccdir}/class_smtp.php
+%attr(640,root,http) %{_noccdir}/common.php
+%attr(640,root,http) %{_noccdir}/conf_lang.php
+%attr(640,root,http) %{_noccdir}/delete.php
+%attr(640,root,http) %{_noccdir}/detect_cyr_charset.php
+%attr(640,root,http) %{_noccdir}/download.php
+%attr(640,root,http) %{_noccdir}/exception.php
+%attr(640,root,http) %{_noccdir}/functions.php
+%attr(640,root,http) %{_noccdir}/get_img.php
+%attr(640,root,http) %{_noccdir}/help.php
+%attr(640,root,http) %{_noccdir}/index.php
+%attr(640,root,http) %{_noccdir}/is_uploaded_file.php
+%attr(640,root,http) %{_noccdir}/logout.php
+%attr(640,root,http) %{_noccdir}/mime.php
+%attr(640,root,http) %{_noccdir}/proxy.php
+%attr(640,root,http) %{_noccdir}/send.php
+%attr(640,root,http) %{_noccdir}/user_filters.php
+%attr(640,root,http) %{_noccdir}/user_prefs.php
 %attr(640,root,http) %config(noreplace) %{_noccdir}/conf.php
 %attr(730,root,http) %dir %{_noccdir}/html
 %attr(640,root,http) %{_noccdir}/html/*
