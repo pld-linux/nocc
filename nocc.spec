@@ -6,8 +6,8 @@
 Summary:	WebMail package
 Summary(pl):	Poczta przez WWW
 Name:		nocc
-Version:	0.9.6_dev.%{_snap}
-Release:	0.2
+Version:	0.9.6
+Release:	0.%{_snap}.2
 License:	GPL
 Group:		Applications/Mail
 #Source0:	http://dl.sourceforge.net/nocc/%{name}-%{version}.tar.gz
