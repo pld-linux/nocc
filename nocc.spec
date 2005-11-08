@@ -83,32 +83,32 @@ fi
 %doc docs/*
 %doc addcgipath.sh
 %doc conf.php.dist
-%attr(730,root,http) %dir %{_noccdir}
+%attr(750,root,http) %dir %{_noccdir}
 %attr(770,root,http) %dir %{_var}/lib/nocc
 %config(noreplace) %verify(not md5 mtime size) /etc/httpd/%{name}.conf
 %attr(640,root,http) %{_noccdir}/*.php
 %dir /etc/nocc
 %attr(640,root,http) %config(noreplace) %verify(not md5 mtime size) /etc/nocc/conf.php
-%attr(730,root,http) %dir %{_noccdir}/html
+%attr(750,root,http) %dir %{_noccdir}/html
 %attr(640,root,http) %{_noccdir}/html/*
-%attr(730,root,http) %dir %{_noccdir}/lang
+%attr(750,root,http) %dir %{_noccdir}/lang
 %attr(640,root,http) %{_noccdir}/lang/*.php
 %attr(750,root,http) %dir %{_noccdir}/themes
-%attr(730,root,http) %dir %{_noccdir}/themes/blue
-%attr(730,root,http) %dir %{_noccdir}/themes/blue/img
+%attr(750,root,http) %dir %{_noccdir}/themes/blue
+%attr(750,root,http) %dir %{_noccdir}/themes/blue/img
 %attr(640,root,http) %{_noccdir}/themes/blue/img/*.png
-%attr(730,root,http) %dir %{_noccdir}/themes/blue/img/smilies
+%attr(750,root,http) %dir %{_noccdir}/themes/blue/img/smilies
 %attr(640,root,http) %{_noccdir}/themes/blue/img/smilies/*.png
 %attr(640,root,http) %{_noccdir}/themes/blue/*.css
-%attr(730,root,http) %dir %{_noccdir}/themes/newlook
-%attr(730,root,http) %dir %{_noccdir}/themes/newlook/img
+%attr(750,root,http) %dir %{_noccdir}/themes/newlook
+%attr(750,root,http) %dir %{_noccdir}/themes/newlook/img
 %attr(640,root,http) %{_noccdir}/themes/newlook/img/*.png
-%attr(730,root,http) %dir %{_noccdir}/themes/newlook/img/smilies
+%attr(750,root,http) %dir %{_noccdir}/themes/newlook/img/smilies
 %attr(640,root,http) %{_noccdir}/themes/newlook/img/smilies/*.png
 %attr(640,root,http) %{_noccdir}/themes/newlook/*.css
-%attr(730,root,http) %dir %{_noccdir}/themes/standard
-%attr(730,root,http) %dir %{_noccdir}/themes/standard/img
+%attr(750,root,http) %dir %{_noccdir}/themes/standard
+%attr(750,root,http) %dir %{_noccdir}/themes/standard/img
 %attr(640,root,http) %{_noccdir}/themes/standard/img/*.png
-%attr(730,root,http) %dir %{_noccdir}/themes/standard/img/smilies
+%attr(750,root,http) %dir %{_noccdir}/themes/standard/img/smilies
 %attr(640,root,http) %{_noccdir}/themes/standard/img/smilies/*.png
 %attr(640,root,http) %{_noccdir}/themes/standard/*.css
