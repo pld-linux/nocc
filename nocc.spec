@@ -1,12 +1,14 @@
 Summary:	WebMail package
 Summary(pl):	Poczta przez WWW
 Name:		nocc
-Version:	0.9.6
-Release:	2
+Version:	1.0.0
+Release:	rc1.1
 License:	GPL
 Group:		Applications/Mail
-Source0:	http://dl.sourceforge.net/nocc/%{name}-%{version}.tar.gz
-#Source0-md5:	909dfaab076144e7382fde878c9f4ebe
+Source0:	http://dl.sourceforge.net/nocc/%{name}-%{version}rc1.tar.gz
+# Source0-md5:	3afd4ab1432dc347573f5a24967a205a
+Source1:	%{name}.conf
+Patch0:		%{name}-config.patch
 URL:		http://nocc.sourceforge.net/
 Requires:	webserver
 Requires:	php
@@ -16,7 +18,7 @@ Provides:	webmail
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_noccdir	/home/services/httpd/html/nocc
+%define		_noccdir	/usr/share/nocc
 
 %description
 NOCC is a webmail client written in PHP. It provides webmail access to
@@ -27,20 +29,54 @@ NOCC jest klientem poczty napisanym w PHP. Umo¿liwia dostêp do kont
 pocztowych IMAP i POP3 przez WWW.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}rc1
+%patch0 -p1
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_noccdir}
-install -d $RPM_BUILD_ROOT%{_noccdir}/profiles
+install -d $RPM_BUILD_ROOT{%{_noccdir},%{_var}/lib/nocc,/etc/nocc,/etc/httpd}
 cp -avR * $RPM_BUILD_ROOT%{_noccdir}
-install -D conf.php.dist $RPM_BUILD_ROOT%{_noccdir}/conf.php
+
+install conf.php.dist $RPM_BUILD_ROOT/etc/nocc/conf.php
+ln -s /etc/nocc/conf.php $RPM_BUILD_ROOT%{_noccdir}/conf.php
+
 rm -rf $RPM_BUILD_ROOT%{_noccdir}/docs
 rm -f $RPM_BUILD_ROOT%{_noccdir}/{COPYING,INSTALL,README,*.sh}
 rm -rf $RPM_BUILD_ROOT%{_noccdir}/debian
+rm -f $RPM_BUILD_ROOT%{_noccdir}/conf.php.dist
+
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/httpd/%{name}.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post
+if [ -f /etc/httpd/httpd.conf ] && ! grep -q "^Include.*%{name}.conf" /etc/httpd/httpd.conf; then
+	echo "Include /etc/httpd/%{name}.conf" >> /etc/httpd/httpd.conf
+	if [ -f /var/lock/subsys/httpd ]; then
+		/usr/sbin/apachectl restart 1>&2
+	fi
+elif [ -d /etc/httpd/httpd.conf ]; then
+	ln -sf /etc/httpd/%{name}.conf /etc/httpd/httpd.conf/99_%{name}.conf
+	if [ -f /var/lock/subsys/httpd ]; then
+		/usr/sbin/apachectl restart 1>&2
+	fi
+fi
+
+%preun
+if [ "$1" = "0" ]; then
+	umask 027
+	if [ -d /etc/httpd/httpd.conf ]; then
+		rm -f /etc/httpd/httpd.conf/99_%{name}.conf
+	else
+		grep -v "^Include.*%{name}.conf" /etc/httpd/httpd.conf > \
+			/etc/httpd/httpd.conf.tmp
+		mv -f /etc/httpd/httpd.conf.tmp /etc/httpd/httpd.conf
+	fi
+	if [ -f /var/lock/subsys/httpd ]; then
+		/usr/sbin/apachectl restart 1>&2
+	fi
+fi
 
 %files
 %defattr(644,root,root,755)
@@ -48,50 +84,31 @@ rm -rf $RPM_BUILD_ROOT
 %doc addcgipath.sh
 %doc conf.php.dist
 %attr(730,root,http) %dir %{_noccdir}
-%attr(770,root,http) %dir %{_noccdir}/profiles
-%attr(640,root,http) %{_noccdir}/action.php
-%attr(640,root,http) %{_noccdir}/check.php
-%attr(640,root,http) %{_noccdir}/class_local.php
-%attr(640,root,http) %{_noccdir}/class_send.php
-%attr(640,root,http) %{_noccdir}/class_smtp.php
-%attr(640,root,http) %{_noccdir}/common.php
-%attr(640,root,http) %{_noccdir}/conf_lang.php
-%attr(640,root,http) %{_noccdir}/contacts.php
-%attr(640,root,http) %{_noccdir}/contacts_manager.php
-%attr(640,root,http) %{_noccdir}/delete.php
-%attr(640,root,http) %{_noccdir}/detect_cyr_charset.php
-%attr(640,root,http) %{_noccdir}/down_mail.php
-%attr(640,root,http) %{_noccdir}/download.php
-%attr(640,root,http) %{_noccdir}/exception.php
-%attr(640,root,http) %{_noccdir}/functions.php
-%attr(640,root,http) %{_noccdir}/get_img.php
-%attr(640,root,http) %{_noccdir}/help.php
-%attr(640,root,http) %{_noccdir}/index.php
-%attr(640,root,http) %{_noccdir}/is_uploaded_file.php
-%attr(640,root,http) %{_noccdir}/logout.php
-%attr(640,root,http) %{_noccdir}/mime.php
-%attr(640,root,http) %{_noccdir}/proxy.php
-%attr(640,root,http) %{_noccdir}/send.php
-%attr(640,root,http) %{_noccdir}/user_filters.php
-%attr(640,root,http) %{_noccdir}/user_prefs.php
-%attr(640,root,http) %config(noreplace) %{_noccdir}/conf.php
+%attr(770,root,http) %dir %{_var}/lib/nocc
+%config(noreplace) %verify(not md5 mtime size) /etc/httpd/%{name}.conf
+%attr(640,root,http) %{_noccdir}/*.php
+%dir /etc/nocc
+%attr(640,root,http) %config(noreplace) %verify(not md5 mtime size) /etc/nocc/conf.php
 %attr(730,root,http) %dir %{_noccdir}/html
 %attr(640,root,http) %{_noccdir}/html/*
 %attr(730,root,http) %dir %{_noccdir}/lang
-%attr(640,root,http) %{_noccdir}/lang/*
+%attr(640,root,http) %{_noccdir}/lang/*.php
 %attr(750,root,http) %dir %{_noccdir}/themes
 %attr(730,root,http) %dir %{_noccdir}/themes/blue
 %attr(730,root,http) %dir %{_noccdir}/themes/blue/img
-%attr(640,root,http) %{_noccdir}/themes/blue/img/*
+%attr(640,root,http) %{_noccdir}/themes/blue/img/*.png
+%attr(730,root,http) %dir %{_noccdir}/themes/blue/img/smilies
+%attr(640,root,http) %{_noccdir}/themes/blue/img/smilies/*.png
 %attr(640,root,http) %{_noccdir}/themes/blue/*.css
-%attr(640,root,http) %{_noccdir}/themes/blue/*.php
 %attr(730,root,http) %dir %{_noccdir}/themes/newlook
 %attr(730,root,http) %dir %{_noccdir}/themes/newlook/img
-%attr(640,root,http) %{_noccdir}/themes/newlook/img/*
+%attr(640,root,http) %{_noccdir}/themes/newlook/img/*.png
+%attr(730,root,http) %dir %{_noccdir}/themes/newlook/img/smilies
+%attr(640,root,http) %{_noccdir}/themes/newlook/img/smilies/*.png
 %attr(640,root,http) %{_noccdir}/themes/newlook/*.css
-%attr(640,root,http) %{_noccdir}/themes/newlook/*.php
 %attr(730,root,http) %dir %{_noccdir}/themes/standard
 %attr(730,root,http) %dir %{_noccdir}/themes/standard/img
-%attr(640,root,http) %{_noccdir}/themes/standard/img/*
+%attr(640,root,http) %{_noccdir}/themes/standard/img/*.png
+%attr(730,root,http) %dir %{_noccdir}/themes/standard/img/smilies
+%attr(640,root,http) %{_noccdir}/themes/standard/img/smilies/*.png
 %attr(640,root,http) %{_noccdir}/themes/standard/*.css
-%attr(640,root,http) %{_noccdir}/themes/standard/*.php
