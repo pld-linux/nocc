@@ -11,7 +11,7 @@ Source1:	%{name}.conf
 Patch0:		%{name}-config.patch
 URL:		http://nocc.sourceforge.net/
 Requires:	webserver
-Requires:	php >= 4.1.0
+Requires:	php >= 3:4.1.0
 Requires:	php-iconv
 Requires:	php-imap
 Requires:	php-pcre
