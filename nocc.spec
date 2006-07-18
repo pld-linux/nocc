@@ -1,25 +1,29 @@
 Summary:	WebMail package
 Summary(pl):	Poczta przez WWW
 Name:		nocc
-Version:	1.0.0
-Release:	rc1.1
+Version:	1.2
+Release:	1
 License:	GPL
 Group:		Applications/Mail
-Source0:	http://dl.sourceforge.net/nocc/%{name}-%{version}rc1.tar.gz
-# Source0-md5:	3afd4ab1432dc347573f5a24967a205a
+Source0:	http://dl.sourceforge.net/nocc/%{name}-%{version}.tar.gz
+# Source0-md5:	5e0a790bdd5ac815cdc39e11f3cf616c
 Source1:	%{name}.conf
 Patch0:		%{name}-config.patch
 URL:		http://nocc.sourceforge.net/
-Requires:	webserver
+BuildRequires:	rpmbuild(macros) >= 1.268
 Requires:	php >= 3:4.1.0
 Requires:	php-iconv
 Requires:	php-imap
 Requires:	php-pcre
+Requires:	webapps
 Provides:	webmail
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_noccdir	/usr/share/nocc
+%define		_webapps	/etc/webapps
+%define		_webapp		nocc
+%define		_sysconfdir	%{_webapps}/%{_webapp}
+%define		_appdir		%{_datadir}/%{_webapp}
 
 %description
 NOCC is a webmail client written in PHP. It provides webmail access to
@@ -30,63 +34,66 @@ NOCC jest klientem poczty napisanym w PHP. Umo¿liwia dostêp do kont
 pocztowych IMAP i POP3 przez WWW.
 
 %prep
-%setup -q -n %{name}-%{version}rc1
+#%%setup -q -n %{name}-%{version}
+%setup -q -c
 %patch0 -p1
+
+cat > apache.conf <<'EOF'
+Alias /%{name} /usr/share/%{name}
+<Directory /usr/share/%{name}>
+        Allow from all
+</Directory>
+EOF
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_noccdir},%{_var}/lib/nocc,/etc/nocc,/etc/httpd}
-cp -avR * $RPM_BUILD_ROOT%{_noccdir}
+install -d $RPM_BUILD_ROOT{%{_sysconfdir},%{_appdir},%{_var}/lib/nocc}
 
-install conf.php.dist $RPM_BUILD_ROOT/etc/nocc/conf.php
-ln -s /etc/nocc/conf.php $RPM_BUILD_ROOT%{_noccdir}/conf.php
+install apache.conf $RPM_BUILD_ROOT%{_sysconfdir}/apache.conf
+install apache.conf $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf
+install apache.conf $RPM_BUILD_ROOT%{_sysconfdir}/lighttpd.conf
 
-rm -rf $RPM_BUILD_ROOT%{_noccdir}/docs
-rm -f $RPM_BUILD_ROOT%{_noccdir}/{COPYING,INSTALL,README,*.sh}
-rm -rf $RPM_BUILD_ROOT%{_noccdir}/debian
-rm -f $RPM_BUILD_ROOT%{_noccdir}/conf.php.dist
-rm -f $RPM_BUILD_ROOT%{_noccdir}/lang/*.sh
+cp -avR * $RPM_BUILD_ROOT%{_appdir}
 
-install %{SOURCE1} $RPM_BUILD_ROOT/etc/httpd/%{name}.conf
+install conf.php.dist $RPM_BUILD_ROOT/%{_sysconfdir}/conf.php
+ln -s %{_sysconfdir}/conf.php $RPM_BUILD_ROOT%{_appdir}/conf.php
+
+rm -rf $RPM_BUILD_ROOT%{_appdir}/docs
+rm -f $RPM_BUILD_ROOT%{_appdir}/{COPYING,INSTALL,README,*.sh}
+rm -rf $RPM_BUILD_ROOT%{_appdir}/debian
+rm -f $RPM_BUILD_ROOT%{_appdir}/conf.php.dist
+rm -f $RPM_BUILD_ROOT%{_appdir}/lang/*.sh
+
+%triggerin -- apache1
+%webapp_register apache %{_webapp}
+
+%triggerun -- apache1
+%webapp_unregister apache %{_webapp}
+
+%triggerin -- apache < 2.2.0, apache-base
+%webapp_register httpd %{_webapp}
+
+%triggerun -- apache < 2.2.0, apache-base
+%webapp_unregister httpd %{_webapp}
+
+%triggerin -- lighttpd
+%webapp_register lighttpd %{_webapp}
+
+%triggerun -- lighttpd
+%webapp_unregister lighttpd %{_webapp}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-%post
-if [ -f /etc/httpd/httpd.conf ] && ! grep -q "^Include.*%{name}.conf" /etc/httpd/httpd.conf; then
-	echo "Include /etc/httpd/%{name}.conf" >> /etc/httpd/httpd.conf
-	if [ -f /var/lock/subsys/httpd ]; then
-		/usr/sbin/apachectl restart 1>&2
-	fi
-elif [ -d /etc/httpd/httpd.conf ]; then
-	ln -sf /etc/httpd/%{name}.conf /etc/httpd/httpd.conf/99_%{name}.conf
-	if [ -f /var/lock/subsys/httpd ]; then
-		/usr/sbin/apachectl restart 1>&2
-	fi
-fi
-
-%preun
-if [ "$1" = "0" ]; then
-	umask 027
-	if [ -d /etc/httpd/httpd.conf ]; then
-		rm -f /etc/httpd/httpd.conf/99_%{name}.conf
-	else
-		grep -v "^Include.*%{name}.conf" /etc/httpd/httpd.conf > \
-			/etc/httpd/httpd.conf.tmp
-		mv -f /etc/httpd/httpd.conf.tmp /etc/httpd/httpd.conf
-	fi
-	if [ -f /var/lock/subsys/httpd ]; then
-		/usr/sbin/apachectl restart 1>&2
-	fi
-fi
 
 %files
 %defattr(644,root,root,755)
 %doc docs/*
 %doc addcgipath.sh
 %doc conf.php.dist
-%dir /etc/nocc
-%config(noreplace) %verify(not md5 mtime size) /etc/httpd/%{name}.conf
-%config(noreplace) %verify(not md5 mtime size) /etc/nocc/conf.php
+%dir %attr(750,root,http) %{_sysconfdir}
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/apache.conf
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/httpd.conf
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/lighttpd.conf
+%attr(640,root,http) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*.php
 %attr(770,root,http) %dir %{_var}/lib/nocc
-%{_noccdir}
+%{_appdir}
