@@ -38,9 +38,9 @@ pocztowych IMAP i POP3 przez WWW.
 %patch0 -p1
 
 cat > apache.conf <<'EOF'
-Alias /%{name} /usr/share/%{name}
-<Directory /usr/share/%{name}>
-        Allow from all
+Alias /%{name} %{_appdir}
+<Directory %{_appdir}>
+	Allow from all
 </Directory>
 EOF
 
