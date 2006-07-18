@@ -34,7 +34,6 @@ NOCC jest klientem poczty napisanym w PHP. Umo¿liwia dostêp do kont
 pocztowych IMAP i POP3 przez WWW.
 
 %prep
-#%%setup -q -n %{name}-%{version}
 %setup -q -c
 %patch0 -p1
 
