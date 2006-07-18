@@ -7,7 +7,6 @@ License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/nocc/%{name}-%{version}.tar.gz
 # Source0-md5:	5e0a790bdd5ac815cdc39e11f3cf616c
-Source1:	%{name}.conf
 Patch0:		%{name}-config.patch
 URL:		http://nocc.sourceforge.net/
 BuildRequires:	rpmbuild(macros) >= 1.268
