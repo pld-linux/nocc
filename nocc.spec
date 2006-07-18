@@ -50,7 +50,6 @@ install -d $RPM_BUILD_ROOT{%{_sysconfdir},%{_appdir},%{_var}/lib/nocc}
 
 install apache.conf $RPM_BUILD_ROOT%{_sysconfdir}/apache.conf
 install apache.conf $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf
-install apache.conf $RPM_BUILD_ROOT%{_sysconfdir}/lighttpd.conf
 
 cp -avR * $RPM_BUILD_ROOT%{_appdir}
 
@@ -75,12 +74,6 @@ rm -f $RPM_BUILD_ROOT%{_appdir}/lang/*.sh
 %triggerun -- apache < 2.2.0, apache-base
 %webapp_unregister httpd %{_webapp}
 
-%triggerin -- lighttpd
-%webapp_register lighttpd %{_webapp}
-
-%triggerun -- lighttpd
-%webapp_unregister lighttpd %{_webapp}
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -92,7 +85,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr(750,root,http) %{_sysconfdir}
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/apache.conf
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/httpd.conf
-%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/lighttpd.conf
 %attr(640,root,http) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*.php
 %attr(770,root,http) %dir %{_var}/lib/nocc
 %{_appdir}
