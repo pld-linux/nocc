@@ -52,7 +52,7 @@ install apache.conf $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf
 
 cp -avR * $RPM_BUILD_ROOT%{_appdir}
 
-install conf.php.dist $RPM_BUILD_ROOT/%{_sysconfdir}/conf.php
+install conf.php.dist $RPM_BUILD_ROOT%{_sysconfdir}/conf.php
 ln -s %{_sysconfdir}/conf.php $RPM_BUILD_ROOT%{_appdir}/conf.php
 
 rm -rf $RPM_BUILD_ROOT%{_appdir}/docs
