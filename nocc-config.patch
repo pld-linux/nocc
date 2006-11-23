@@ -1,20 +1,20 @@
 --- nocc-1.0.0rc1/conf.php.dist.orig	2005-11-08 15:43:23.853749304 +0100
 +++ nocc-1.0.0rc1/conf.php.dist	2005-11-08 15:44:05.660393728 +0100
-@@ -95,7 +95,7 @@
+@@ -122,7 +122,7 @@
  // Default tmp directory (where to store temporary uploaded files)
  // This should be something like '/tmp' on Unix System
  // And 'c:\\temp' on Win32 (note that we must escape "\")
 -$conf->tmpdir = '';
 +$conf->tmpdir = '/tmp';
  
- // Preferences data directory
+ // Preferences and contacts data directory
  // IMPORTANT: This directory must exist and be writable by the user
-@@ -105,7 +105,7 @@
- // This should be something like 'profiles/' on Unix System
- // or 'prefs\\' on Win32 (note that we must escape "\")
- // If left empty, preferences will be disabled.
+@@ -135,7 +135,7 @@
+ // be readable by everybody, and will contain sensible information as email
+ // addresses and names.
+ // If left empty, preferences, contacts and session saving will be disabled.
 -$conf->prefs_dir = '';
 +$conf->prefs_dir = '/var/lib/nocc';
  
- // Default folder to go first
- $conf->default_folder = 'INBOX';
+ // Master key for session password encryption. Longer is better.
+ // It must not be left empty.
