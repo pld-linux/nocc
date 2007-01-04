@@ -1,14 +1,15 @@
-%define		_snap		20061123
+#%define		_snap		20061123
 Summary:	WebMail package
 Summary(pl):	Poczta przez WWW
 Name:		nocc
 Version:	1.3
-Release:	0.%{_snap}.1
+#Release:	0.%{_snap}.1
+Release:	1
 License:	GPL
 Group:		Applications/Mail
-#Source0:	http://dl.sourceforge.net/nocc/%{name}-%{version}.tar.gz
-Source0:	http://nocc.sourceforge.net/download/%{name}_snapshot.tar.gz
-# Source0-md5:	4cef5177b313d4f7f454eaa2a024d944
+Source0:	http://dl.sourceforge.net/nocc/%{name}-%{version}.tar.gz
+# Source0-md5:	bb7c9103831ce35d1769c3ed7d797021
+#Source0:	http://nocc.sourceforge.net/download/%{name}_snapshot.tar.gz
 Patch0:		%{name}-config.patch
 URL:		http://nocc.sourceforge.net/
 BuildRequires:	rpmbuild(macros) >= 1.268
@@ -35,9 +36,9 @@ NOCC jest klientem poczty napisanym w PHP. Umo¿liwia dostêp do kont
 pocztowych IMAP i POP3 przez WWW.
 
 %prep
-#%%setup -q -c
-%setup -q -n %{name}
-cd webmail
+%setup -q -c
+#%setup -q -n %{name}
+#cd webmail
 %patch0 -p1
 
 cat > apache.conf <<'EOF'
@@ -54,7 +55,7 @@ done
 
 %install
 rm -rf $RPM_BUILD_ROOT
-cd webmail
+#cd webmail
 
 install -d $RPM_BUILD_ROOT{%{_sysconfdir},%{_appdir},%{_var}/lib/nocc}
 install apache.conf $RPM_BUILD_ROOT%{_sysconfdir}/apache.conf
@@ -88,9 +89,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc webmail/docs/*
-%doc webmail/addcgipath.sh
-%doc webmail/conf.php.dist
+#%doc webmail/docs/*
+#%doc webmail/addcgipath.sh
+#%doc webmail/conf.php.dist
+%doc docs/*
+%doc addcgipath.sh
+%doc conf.php.dist
 %dir %attr(750,root,http) %{_sysconfdir}
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/apache.conf
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/httpd.conf
