@@ -1,6 +1,6 @@
 #%define		_snap		20061123
 Summary:	WebMail package
-Summary(pl):	Poczta przez WWW
+Summary(pl.UTF-8):   Poczta przez WWW
 Name:		nocc
 Version:	1.3
 #Release:	0.%{_snap}.1
@@ -31,8 +31,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 NOCC is a webmail client written in PHP. It provides webmail access to
 IMAP and POP3 accounts.
 
-%description -l pl
-NOCC jest klientem poczty napisanym w PHP. Umo¿liwia dostêp do kont
+%description -l pl.UTF-8
+NOCC jest klientem poczty napisanym w PHP. UmoÅ¼liwia dostÄ™p do kont
 pocztowych IMAP i POP3 przez WWW.
 
 %prep
