@@ -1,6 +1,6 @@
 #%define		_snap		20061123
 Summary:	WebMail package
-Summary(pl.UTF-8):   Poczta przez WWW
+Summary(pl.UTF-8):	Poczta przez WWW
 Name:		nocc
 Version:	1.3
 #Release:	0.%{_snap}.1
