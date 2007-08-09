@@ -2,13 +2,13 @@
 Summary:	WebMail package
 Summary(pl.UTF-8):	Poczta przez WWW
 Name:		nocc
-Version:	1.3
+Version:	1.4
 #Release:	0.%{_snap}.1
 Release:	1
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/nocc/%{name}-%{version}.tar.gz
-# Source0-md5:	bb7c9103831ce35d1769c3ed7d797021
+# Source0-md5:	82624a1bb8ab8482b9dcf7f1de60b143
 #Source0:	http://nocc.sourceforge.net/download/%{name}_snapshot.tar.gz
 Patch0:		%{name}-config.patch
 URL:		http://nocc.sourceforge.net/
@@ -36,7 +36,7 @@ NOCC jest klientem poczty napisanym w PHP. Umożliwia dostęp do kont
 pocztowych IMAP i POP3 przez WWW.
 
 %prep
-%setup -q -c
+%setup -q
 #%setup -q -n %{name}
 #cd webmail
 %patch0 -p1
