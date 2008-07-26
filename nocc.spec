@@ -2,13 +2,13 @@
 Summary:	WebMail package
 Summary(pl.UTF-8):	Poczta przez WWW
 Name:		nocc
-Version:	1.4
+Version:	1.6
 #Release:	0.%{_snap}.1
 Release:	1
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/nocc/%{name}-%{version}.tar.gz
-# Source0-md5:	82624a1bb8ab8482b9dcf7f1de60b143
+# Source0-md5:	2c60e059e1451ec56201866964258584
 #Source0:	http://nocc.sourceforge.net/download/%{name}_snapshot.tar.gz
 Patch0:		%{name}-config.patch
 URL:		http://nocc.sourceforge.net/
@@ -36,7 +36,7 @@ NOCC jest klientem poczty napisanym w PHP. Umożliwia dostęp do kont
 pocztowych IMAP i POP3 przez WWW.
 
 %prep
-%setup -q
+%setup -q -c %{name}-%{version}
 #%setup -q -n %{name}
 #cd webmail
 %patch0 -p1
@@ -61,15 +61,15 @@ install -d $RPM_BUILD_ROOT{%{_sysconfdir},%{_appdir},%{_var}/lib/nocc}
 install apache.conf $RPM_BUILD_ROOT%{_sysconfdir}/apache.conf
 install apache.conf $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf
 
+install config/conf.php.dist config/conf.php
+mv config $RPM_BUILD_ROOT%{_sysconfdir}/
 cp -avR * $RPM_BUILD_ROOT%{_appdir}
 
-install conf.php.dist $RPM_BUILD_ROOT%{_sysconfdir}/conf.php
-ln -s %{_sysconfdir}/conf.php $RPM_BUILD_ROOT%{_appdir}/conf.php
+ln -s %{_sysconfdir}/config $RPM_BUILD_ROOT%{_appdir}/
 
 rm -rf $RPM_BUILD_ROOT%{_appdir}/docs
 rm -f $RPM_BUILD_ROOT%{_appdir}/{COPYING,INSTALL,README,*.sh}
 rm -rf $RPM_BUILD_ROOT%{_appdir}/debian
-rm -f $RPM_BUILD_ROOT%{_appdir}/conf.php.dist
 rm -f $RPM_BUILD_ROOT%{_appdir}/lang/*.sh
 
 %triggerin -- apache1 < 1.3.37-3, apache1-base
@@ -94,10 +94,10 @@ rm -rf $RPM_BUILD_ROOT
 #%doc webmail/conf.php.dist
 %doc docs/*
 %doc addcgipath.sh
-%doc conf.php.dist
 %dir %attr(750,root,http) %{_sysconfdir}
+%dir %attr(750,root,http) %{_sysconfdir}/config
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/apache.conf
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/httpd.conf
-%attr(640,root,http) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*.php
+%attr(640,root,http) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/config/*
 %attr(770,root,http) %dir %{_var}/lib/nocc
 %{_appdir}
