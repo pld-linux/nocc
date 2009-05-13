@@ -1,0 +1,3 @@
+alias.url += (
+    "/nocc" => "/usr/share/nocc",
+)
