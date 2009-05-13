@@ -8,7 +8,6 @@ Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/nocc/%{name}-%{version}.tar.gz
 # Source0-md5:	4c13e9e3f4e40e2e4420442dbc22bcbd
 Source1:	%{name}.lighttpd
-# Source1-md5:	666d4decce2b150e1399785667bb301d
 Patch0:		%{name}-config.patch
 URL:		http://nocc.sourceforge.net/
 BuildRequires:	rpmbuild(macros) >= 1.268
