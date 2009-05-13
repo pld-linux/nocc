@@ -1,15 +1,12 @@
-#%define		_snap		20061123
 Summary:	WebMail package
 Summary(pl.UTF-8):	Poczta przez WWW
 Name:		nocc
-Version:	1.6
-#Release:	0.%{_snap}.1
+Version:	1.7
 Release:	1
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/nocc/%{name}-%{version}.tar.gz
-# Source0-md5:	2c60e059e1451ec56201866964258584
-#Source0:	http://nocc.sourceforge.net/download/%{name}_snapshot.tar.gz
+# Source0-md5:	4c13e9e3f4e40e2e4420442dbc22bcbd
 Patch0:		%{name}-config.patch
 URL:		http://nocc.sourceforge.net/
 BuildRequires:	rpmbuild(macros) >= 1.268
@@ -37,8 +34,7 @@ pocztowych IMAP i POP3 przez WWW.
 
 %prep
 %setup -q -c %{name}-%{version}
-#%setup -q -n %{name}
-#cd webmail
+
 %patch0 -p1
 
 cat > apache.conf <<'EOF'
@@ -55,7 +51,6 @@ done
 
 %install
 rm -rf $RPM_BUILD_ROOT
-#cd webmail
 
 install -d $RPM_BUILD_ROOT{%{_sysconfdir},%{_appdir},%{_var}/lib/nocc}
 install apache.conf $RPM_BUILD_ROOT%{_sysconfdir}/apache.conf
@@ -89,11 +84,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-#%doc webmail/docs/*
-#%doc webmail/addcgipath.sh
-#%doc webmail/conf.php.dist
 %doc docs/*
-%doc addcgipath.sh
 %dir %attr(750,root,http) %{_sysconfdir}
 %dir %attr(750,root,http) %{_sysconfdir}/config
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/apache.conf
