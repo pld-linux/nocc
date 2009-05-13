@@ -1,6 +1,6 @@
---- nocc-1.4/conf.php.dist.orig	2007-06-01 19:24:11.000000000 +0000
-+++ nocc-1.4/conf.php.dist	2007-08-09 17:25:51.056656250 +0000
-@@ -181,12 +181,12 @@
+--- nocc-1.7/config/conf.php.dist.orig	2009-05-13 09:26:15.661836869 +0200
++++ nocc-1.7/config/conf.php.dist	2009-05-13 09:28:08.515317487 +0200
+@@ -195,12 +195,12 @@
  // be readable by everybody, and will contain sensible information as email
  // addresses and names.
  // If left empty, preferences, contacts and session saving will be disabled.
