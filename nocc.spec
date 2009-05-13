@@ -7,6 +7,8 @@ License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/nocc/%{name}-%{version}.tar.gz
 # Source0-md5:	4c13e9e3f4e40e2e4420442dbc22bcbd
+Source1:	%{name}.lighttpd
+# Source1-md5:	666d4decce2b150e1399785667bb301d
 Patch0:		%{name}-config.patch
 URL:		http://nocc.sourceforge.net/
 BuildRequires:	rpmbuild(macros) >= 1.268
@@ -19,8 +21,8 @@ Provides:	webmail
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%define		_webapp		%{name}
 %define		_webapps	/etc/webapps
-%define		_webapp		nocc
 %define		_sysconfdir	%{_webapps}/%{_webapp}
 %define		_appdir		%{_datadir}/%{_webapp}
 
@@ -55,6 +57,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sysconfdir},%{_appdir},%{_var}/lib/nocc}
 install apache.conf $RPM_BUILD_ROOT%{_sysconfdir}/apache.conf
 install apache.conf $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf
+install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/lighttpd.conf
 
 install config/conf.php.dist config/conf.php
 mv config $RPM_BUILD_ROOT%{_sysconfdir}/
@@ -79,6 +82,12 @@ rm -f $RPM_BUILD_ROOT%{_appdir}/lang/*.sh
 %triggerun -- apache < 2.2.0, apache-base
 %webapp_unregister httpd %{_webapp}
 
+%triggerin -- lighttpd
+%webapp_register lighttpd %{_webapp}
+
+%triggerun -- lighttpd
+%webapp_unregister lighttpd %{_webapp}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -89,6 +98,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr(750,root,http) %{_sysconfdir}/config
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/apache.conf
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/httpd.conf
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/lighttpd.conf
 %attr(640,root,http) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/config/*
 %attr(770,root,http) %dir %{_var}/lib/nocc
 %{_appdir}
