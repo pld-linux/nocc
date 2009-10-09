@@ -1,12 +1,12 @@
 Summary:	WebMail package
 Summary(pl.UTF-8):	Poczta przez WWW
 Name:		nocc
-Version:	1.7
+Version:	1.8.1
 Release:	1
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/nocc/%{name}-%{version}.tar.gz
-# Source0-md5:	4c13e9e3f4e40e2e4420442dbc22bcbd
+# Source0-md5:	93862c64e35c935007c15bedbe29e092
 Source1:	%{name}.lighttpd
 Patch0:		%{name}-config.patch
 URL:		http://nocc.sourceforge.net/
