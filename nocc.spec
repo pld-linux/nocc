@@ -10,6 +10,7 @@ Source0:	http://dl.sourceforge.net/nocc/%{name}-%{version}.tar.gz
 Source1:	%{name}.lighttpd
 Patch0:		%{name}-config.patch
 URL:		http://nocc.sourceforge.net/
+BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.268
 Requires:	php(iconv)
 Requires:	php(imap)
