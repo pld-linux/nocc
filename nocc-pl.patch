@@ -1,0 +1,11 @@
+--- nocc-1.8.3/lang/pl.php.orig	2010-07-08 19:07:18.000000000 +0200
++++ nocc-1.8.3/lang/pl.php	2010-07-08 19:07:54.000000000 +0200
+@@ -48,7 +48,7 @@
+ $title_prev_msg = 'Poprzednia wiadomość';
+ $html_theme_label = 'Wygląd';
+ $html_welcome = 'Witaj w %1$s';
+-$html_login = 'Nazwa konta';
++$html_login = 'Zaloguj się';
+ $html_submit = 'OK';
+ $html_help = 'Pomoc';
+ $html_wrong = 'Nazwa konta lub hasło są niepoprawne';
