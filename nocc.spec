@@ -1,14 +1,15 @@
 Summary:	WebMail package
 Summary(pl.UTF-8):	Poczta przez WWW
 Name:		nocc
-Version:	1.8.2
+Version:	1.8.3
 Release:	1
 License:	GPL
 Group:		Applications/Mail
-Source0:	http://dl.sourceforge.net/nocc/%{name}-%{version}.tar.gz
-# Source0-md5:	337d20e6d0faaec1640b546f025b70da
+Source0:	http://downloads.sourceforge.net/nocc/%{name}-%{version}.tar.gz
+# Source0-md5:	731c8ab05a6de5131383be0810fe76a2
 Source1:	%{name}.lighttpd
 Patch0:		%{name}-config.patch
+Patch1:		%{name}-pl.patch
 URL:		http://nocc.sourceforge.net/
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.268
