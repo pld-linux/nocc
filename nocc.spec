@@ -12,7 +12,8 @@ Patch0:		%{name}-config.patch
 Patch1:		%{name}-pl.patch
 URL:		http://nocc.sourceforge.net/
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.268
+BuildRequires:	rpmbuild(macros) >= 1.566
+BuildRequires:	sed >= 4.0
 Requires:	php(iconv)
 Requires:	php(imap)
 Requires:	php(pcre)
@@ -38,6 +39,7 @@ pocztowych IMAP i POP3 przez WWW.
 %prep
 %setup -q -c %{name}-%{version}
 
+%undos -f php
 %patch0 -p1
 %patch1 -p1
 
