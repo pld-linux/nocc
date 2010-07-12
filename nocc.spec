@@ -2,7 +2,7 @@ Summary:	WebMail package
 Summary(pl.UTF-8):	Poczta przez WWW
 Name:		nocc
 Version:	1.8.3
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://downloads.sourceforge.net/nocc/%{name}-%{version}.tar.gz
@@ -39,6 +39,7 @@ pocztowych IMAP i POP3 przez WWW.
 %setup -q -c %{name}-%{version}
 
 %patch0 -p1
+%patch1 -p1
 
 cat > apache.conf <<'EOF'
 Alias /%{name} %{_appdir}
