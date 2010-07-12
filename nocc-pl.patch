@@ -1,5 +1,5 @@
---- nocc-1.8.3/lang/pl.php.orig	2010-07-08 19:07:18.000000000 +0200
-+++ nocc-1.8.3/lang/pl.php	2010-07-08 19:07:54.000000000 +0200
+--- nocc-1.8.3/lang/pl.php.orig	2010-07-12 11:24:18.000000000 +0200
++++ nocc-1.8.3/lang/pl.php	2010-07-12 11:27:22.000000000 +0200
 @@ -48,7 +48,7 @@
  $title_prev_msg = 'Poprzednia wiadomość';
  $html_theme_label = 'Wygląd';
