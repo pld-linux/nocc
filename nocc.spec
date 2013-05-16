@@ -2,7 +2,7 @@ Summary:	WebMail package
 Summary(pl.UTF-8):	Poczta przez WWW
 Name:		nocc
 Version:	1.8.3
-Release:	2
+Release:	3
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://downloads.sourceforge.net/nocc/%{name}-%{version}.tar.gz
@@ -20,6 +20,7 @@ Requires:	php(pcre)
 Requires:	webapps
 Requires:	webserver(php) >= 4.1.0
 Provides:	webmail
+Conflicts:	apache-base < 2.4.0-1
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -50,6 +51,13 @@ Alias /%{name} %{_appdir}
 </Directory>
 EOF
 
+cat > httpd.conf <<'EOF'
+Alias /%{name} %{_appdir}
+<Directory %{_appdir}>
+	Require all granted
+</Directory>
+EOF
+
 %build
 find -type d -name CVS | while read cvsdir; do
 	rm -rf $cvsdir
@@ -60,7 +68,7 @@ rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT{%{_sysconfdir},%{_appdir},%{_var}/lib/nocc}
 install apache.conf $RPM_BUILD_ROOT%{_sysconfdir}/apache.conf
-install apache.conf $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf
+install httpd.conf $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf
 install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/lighttpd.conf
 
 install config/conf.php.dist config/conf.php
@@ -80,10 +88,10 @@ rm -f $RPM_BUILD_ROOT%{_appdir}/lang/*.sh
 %triggerun -- apache1 < 1.3.37-3, apache1-base
 %webapp_unregister apache %{_webapp}
 
-%triggerin -- apache < 2.2.0, apache-base
+%triggerin -- apache-base
 %webapp_register httpd %{_webapp}
 
-%triggerun -- apache < 2.2.0, apache-base
+%triggerun -- apache-base
 %webapp_unregister httpd %{_webapp}
 
 %triggerin -- lighttpd
