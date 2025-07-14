@@ -41,8 +41,8 @@ pocztowych IMAP i POP3 przez WWW.
 %setup -q -c %{name}-%{version}
 
 %undos -f php
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 cat > apache.conf <<'EOF'
 Alias /%{name} %{_appdir}
